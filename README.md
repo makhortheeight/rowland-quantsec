@@ -1,4 +1,4 @@
-# Facts about this pipeline (rowland-quantsec) [26/07/2022 15:52
+# Facts about this pipeline (rowland-quantsec) [26/07/2022 15:54]
 
 This pipeline aims to profile mRNA responses. It uses Lexogen QuantSec 3' kit for sequencing platform and protocol --> info on RNA-to-cDNA conversion, as well as adaptor sequence and DNA amplification specifics, can be found on their website [linked at the bottom of page].
 
