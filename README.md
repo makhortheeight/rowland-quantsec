@@ -1,4 +1,4 @@
-# Facts about this pipeline (rowland-quantsec) [26/07/2022 15:54]
+# Facts about this pipeline (rowland-quantsec) [26/07/2022 16:25]
 
 This pipeline aims to profile mRNA responses. It uses Lexogen QuantSec 3' kit for sequencing platform and protocol --> info on RNA-to-cDNA conversion, as well as adaptor sequence and DNA amplification specifics, can be found on their website [linked at the bottom of page].
 
@@ -16,7 +16,7 @@ Concatenated files are aligned to human genome using a STAR command.
 
 BAM files are then indexed using a samtools command.
 
-Future analysis is applied after this pipeline --> FeatureCounts.sh script is included in directory, but is never called.
+Future analysis is applied after this pipeline --> FeatureCounts.sh script is included in directory, but is never called. An example of a full post-pipeline analysis can be found at https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8791942/
 
 # fa.gz files that are used as reference
 
