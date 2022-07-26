@@ -1,24 +1,35 @@
-# Facts about this pipeline (rowland-quantsec) [26/07/2022 15:43]
+# Facts about this pipeline (rowland-quantsec) [26/07/2022 15:52
 
 This pipeline aims to profile mRNA responses. It uses Lexogen QuantSec 3' kit for sequencing platform and protocol --> info on RNA-to-cDNA conversion, as well as adaptor sequence and DNA amplification specifics, can be found on their website [linked at the bottom of page].
+
 This pipeline uses Single-End sequencing, not Paired End --> Narrows down to 2 possible truseq files from Trimmomatic github.
+
 NextGenSequencing is used after library amplification step --> reads are generated towards polyA tail, hence why that's still in the actual reads and needs to be filtered. 
+
 Trim_L1.sh and trim_L2.sh both call bbduk.sh to remove the polyA tail, the adaptors attached to each read, as well as any low-quality tails. Fastqc is run on each file before and after the filtering by bbduk.sh.
+
 Multiqc report generated after trimming is completed.
+
 All trimmed files are concatenated into one file using concatenate.sh--> this is necessary before alignment.
+
 Concatenated files are aligned to human genome using a STAR command.
+
 BAM files are then indexed using a samtools command.
+
 Future analysis is applied after this pipeline --> FeatureCounts.sh script is included in directory, but is never called.
 
 # fa.gz files that are used as reference
 
 polyA.fa.gz is used to remove any polyA tails from the reads --> polyA tails not removed during cDNA conversion, ergo removed after the fact.
+
 truseq.fa.gz is used to remove the adaptor sequences used during cDNA generation.
 
 # How bbduk.sh works
 
-Complete bbduk.sh documentation for each field can be found in the script itself
+Complete bbduk.sh documentation for each field can be found in the script itself.
+
 Usage examples can be found in user guide at https://jgi.doe.gov/data-and-tools/software-tools/bbtools/bb-tools-user-guide/bbduk-guide/
+
 ### Pipeline fields:
 
 in=/path/to/sample/file
@@ -56,19 +67,26 @@ minlength=int
 
 # Scripts that are present but uncalled
 
-checksum.sh --> validates that .fastq.gz files are copied over correctly
-FeatureCounts.sh --> script that counts exons - best used after pipeline itself
-concatenate_rawfastq.sh --> alternative concatenation script that works (funnily enough) on raw fastq files
+checksum.sh --> validates that .fastq.gz files are copied over correctly.
+
+FeatureCounts.sh --> script that counts exons - best used after pipeline itself.
+
+concatenate_rawfastq.sh --> alternative concatenation script that works (funnily enough) on raw fastq files.
 
 # Current questions
 
 Which truseq file from the trimmomatic github is the right truseq file for this pipeline?
+
 How many reads per sample? --> 3 files per subject - each with different treatment
+
 Unclear why pipeline uses 2 identical trimming files?
+
 Why do the trimmed files need to be concatenated? They went through completely different treatments, why not align them as separate files?
 
 # Links and sources referred to
 
 Background on rnaseq found at https://rnaseq.uoregon.edu/
+
 Some sequencing protocol info found at https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8791942/
+
 More sequencing protocol info found at https://www.lexogen.com/quantseq-workflow/
