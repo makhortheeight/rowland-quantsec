@@ -1,4 +1,4 @@
-# Facts about this pipeline (rowland-quantsec) [26/07/2022 16:25]
+# Facts about this pipeline (rowland-quantsec) [03/08/2022 11:23]
 
 This pipeline aims to profile mRNA responses. It uses Lexogen QuantSec 3' kit for sequencing platform and protocol --> info on RNA-to-cDNA conversion, as well as adaptor sequence and DNA amplification specifics, can be found on their website [linked at the bottom of page].
 
@@ -75,13 +75,11 @@ concatenate_rawfastq.sh --> alternative concatenation script that works (funnily
 
 # Current questions
 
-Which truseq file from the trimmomatic github is the right truseq file for this pipeline?
+---Which truseq file from the trimmomatic github is the right truseq file for this pipeline?--- File found!
 
-How many reads per sample? --> 3 files per subject - each with different treatment
+---Unclear why pipeline uses 2 identical trimming files?--- The data came straight from sequencing service, these scripts were used for trimming the separate layers.
 
-Unclear why pipeline uses 2 identical trimming files?
-
-Why do the trimmed files need to be concatenated? They went through completely different treatments, why not align them as separate files?
+---Why do the trimmed files need to be concatenated? They went through completely different treatments, why not align them as separate files?--- The data came from the sequencing service, so was unconcatenated, but the files from the GEO Accession are already concatenated, making this step now redundant.
 
 # Links and sources referred to
 
