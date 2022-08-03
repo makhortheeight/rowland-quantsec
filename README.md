@@ -75,11 +75,11 @@ concatenate_rawfastq.sh --> alternative concatenation script that works (funnily
 
 # Current questions
 
----Which truseq file from the trimmomatic github is the right truseq file for this pipeline?--- File found!
+~~Which truseq file from the trimmomatic github is the right truseq file for this pipeline?~~ File found!
 
----Unclear why pipeline uses 2 identical trimming files?--- The data came straight from sequencing service, these scripts were used for trimming the separate layers.
+~~Unclear why pipeline uses 2 identical trimming files?~~ The data came straight from sequencing service, these scripts were used for trimming the separate layers.
 
----Why do the trimmed files need to be concatenated? They went through completely different treatments, why not align them as separate files?--- The data came from the sequencing service, so was unconcatenated, but the files from the GEO Accession are already concatenated, making this step now redundant.
+~~Why do the trimmed files need to be concatenated? They went through completely different treatments, why not align them as separate files?~~ The data came from the sequencing service, so was unconcatenated, but the files from the GEO Accession are already concatenated, making this step now redundant.
 
 # Links and sources referred to
 
