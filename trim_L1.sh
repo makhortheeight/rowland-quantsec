@@ -16,11 +16,12 @@ module load fastqc/0.11.9
 #it contains this:
 for sample in `cat ~/scratch/hscott/rowland-quantsec/samples.txt`
 do
-R1=${sample}
+pwd
+R1=~/project/Scripts/rowland-quantsec/fastqFiles/${sample}
 echo ${R1} "pre qc"
 
 #fastqc on pre-trimmed file
-fastqc ../../../scratch/hscott/rowland-quantsec/${R1} --outdir ../../../scratch/st-aciernia-1/hscott/rowland-quantsec/fastqc_pretrim
+fastqc ${R1} --outdir fastqc_pretrim
 
 ### remove the adapter contamination, polyA read through, and low quality tails
 ##https://jgi.doe.gov/data-and-tools/bbtools/bb-tools-user-guide/bbduk-guide/
@@ -28,12 +29,12 @@ fastqc ../../../scratch/hscott/rowland-quantsec/${R1} --outdir ../../../scratch/
 ## quality-trim to Q10 using the Phred algorithm,
 echo ${R1} "trimming"
 
-bbduk.sh in=~/scratch/hscott/rowland-quantsec/${R1} out=${R1} ref=~/scratch/hscott/rowland-quantsec/polyA.fa.gz,truseq_rna.fa.gz k=13 ktrim=r forcetrimleft=11 useshortkmers=t mink=5 qtrim=t trimq=10 minlength=20
+bbduk.sh in=${R1} out=${R1} ref=~/scratch/hscott/rowland-quantsec/test.fa.gz,/home/hscott03/scratch/hscott/rowland-quantsec/truseq_rna.fa.gz k=13 ktrim=r forcetrimleft=11 useshortkmers=t mink=5 qtrim=t trimq=10 minlength=20
 
 
 #fastqc on post-trimmed file
 echo ${R1} "post qc"
-fastqc ${R1} --outdir ../../../scratch/st-aciernia-1/hscott/rowland-quantsec/fastqc_posttrim
+fastqc ${R1} --outdir fastqc_posttrim
 
 done
 

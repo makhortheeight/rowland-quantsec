@@ -1,5 +1,5 @@
 #!/bin/bash
-#PBS -l walltime=6:00:00,select=1:ncpus=4:mem=4000mb
+#PBS -l walltime=6:00:00,select=1:ncpus=4:mem=8000mb
 #PBS -N Quantsec
 #PBS -A st-aciernia-1
 #PBS -v currUser=$USER
@@ -40,21 +40,26 @@ module load bbmap/38.86
 
 #######################################################################################
 #run trim.sh srcipt:
+pwd
+cd scratch/hscott/rowland-quantsec
+
 ~/scratch/hscott/rowland-quantsec/trim_L1.sh
-~/scratch/hscott/rowland-quantsec/trim_L2.sh
+#~/scratch/hscott/rowland-quantsec/trim_L2.sh
 
 #trims and performs pre and post trim qc for each batch of sequencing independently
 #collect all qc together with:
-module load multiqc/1.6
+#module load multiqc/1.6
 
-multiqc fastqc_pretrim/ --filename PreTrim_multiqc_report.html --ignore-samples Undetermined* --interactive
+#multiqc fastqc_pretrim/ --filename PreTrim_multiqc_report.html --ignore-samples Undetermined* --interactive
 
-multiqc fastqc_posttrim/ --filename PostTrim_multiqc_report.html --ignore-samples Undetermined* --interactive
+#multiqc fastqc_posttrim/ --filename PostTrim_multiqc_report.html --ignore-samples Undetermined* --interactive
+
+### Multiqc not available for Sockeye; fastqc done in trim_L1, possibly do multiqc locally?
 
 #######################################################################################
 #concatenate trimmed reads for each sample together into 1 fastq.gz for alignment
 #cat 101123NT*.fastq.gz > 101123NT.fastq.gz
-~/scratch/hscott/rowland-quantsec/concatenate.sh 
+#~/scratch/hscott/rowland-quantsec/concatenate.sh 
 #######################################################################################
 
 #all samples: find . -name '*fastq.gz' -print > samples.txt
@@ -67,17 +72,19 @@ R1=${sample}
 
 echo ${R1} "unzipping"
 
-gunzip trimmed_sequences/combinedfastq/${sample}.fastq.gz
+gunzip trimmed_sequences/${sample}
 
 echo ${R1} "mapping started"
 
-STAR --runThreadN 12 --genomeDir STAR/GRCh38.p12/star_indices/ --readFilesIn  trimmed_sequences/combinedfastq/${sample}.fastq --outFilterType BySJout --outFilterMultimapNmax 20 --alignSJoverhangMin 8 --alignSJDBoverhangMin 1 --outFilterMismatchNmax 999 --outFilterMismatchNoverLmax 0.1 --alignIntronMin 20 --alignIntronMax 1000000 --alignMatesGapMax 1000000 --outSAMattributes NH HI nM AS MD --outSAMtype BAM SortedByCoordinate --quantMode GeneCounts --outFileNamePrefix star_out/${sample} 
+#fix the name of file being read in
+
+STAR --runThreadN 12 --genomeDir STAR/GRCh38.p12/star_indices/ --readFilesIn  trimmed_sequences/${sample}.fastq --outFilterType BySJout --outFilterMultimapNmax 20 --alignSJoverhangMin 8 --alignSJDBoverhangMin 1 --outFilterMismatchNmax 999 --outFilterMismatchNoverLmax 0.1 --alignIntronMin 20 --alignIntronMax 1000000 --alignMatesGapMax 1000000 --outSAMattributes NH HI nM AS MD --outSAMtype BAM SortedByCoordinate --quantMode GeneCounts --outFileNamePrefix star_out/${sample} 
 
 
 echo ${R1} "mapping completed"
 done
 
-
+echo "Finished all mapping!"
 
 module load python/3.8.10
 module load samtools/1.12
@@ -85,6 +92,8 @@ module load samtools/1.12
 #Indexed bam files are necessary for many visualization and downstream analysis tools
 cd star_out
 for bamfile in */starAligned.sortedByCoord.out.bam ; do samtools index ${bamfile}; done
+
+echo "Program finished, have a nice day"
 
 #From this point any further analysis can be applied.
 
