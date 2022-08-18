@@ -1,4 +1,4 @@
-# Facts about this pipeline (rowland-quantsec) [03/08/2022 11:23]
+# Facts about this pipeline (rowland-quantsec) [18/08/2022 13:13]
 
 This pipeline aims to profile mRNA responses. It uses Lexogen QuantSec 3' kit for sequencing platform and protocol --> info on RNA-to-cDNA conversion, as well as adaptor sequence and DNA amplification specifics, can be found on their website [linked at the bottom of page].
 
@@ -10,9 +10,7 @@ Trim_L1.sh and trim_L2.sh both call bbduk.sh to remove the polyA tail, the adapt
 
 Multiqc report generated after trimming is completed.
 
-All trimmed files are concatenated into one file using concatenate.sh--> this is necessary before alignment.
-
-Concatenated files are aligned to human genome using a STAR command.
+Files are aligned to human genome using a STAR command.
 
 BAM files are then indexed using a samtools command.
 
@@ -24,9 +22,31 @@ polyA.fa.gz is used to remove any polyA tails from the reads --> polyA tails not
 
 truseq.fa.gz is used to remove the adaptor sequences used during cDNA generation.
 
+# Step by step of how this works
+NOTES:
+- This presumes you are already set up on Sockeye, refer to the slides from the training presentation by ARC 
+- You *will* have to change the addresses for files, as my home directory is not the same as yours
+
+1. After cloning this repository, download the needed fastq.gz files by using the online SRA Explorer tool (found at https://sra-explorer.info/). Simply type the accession number (found at https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE140702) into the field, and set the maximum number of results to 130 (by default, this is set to 100). 
+2. Run checksum.sh locally to ensure that the fastq.gz files were downloaded correctly. Additionally, run localhg38STARbuild.sh locally to build some files needed much later, during the alignment phase.
+3. Using the Globus Web Interface (found at https://confluence.it.ubc.ca/display/UARC/About+Globus), upload the entire rowland-quantsec directory, as well as the fastq.gz files, to /home/USER/project/Scripts/USER on Sockeye. You will want to store the fastq.gz files within the rowland-quantsec directory, so I'd recommend uploading rowland-quantsec first, and then uploading the directory containing the fastq.gz files. This should contain every script and file needed for this pipeline.
+4. Within Sockeye, copy the rowand-quantsec directory to /scratch/st-aciernia-1/USER. /scratch is 2 levels higher than the default working directory, /home/USER, and is the only place within Sockeye where a submitted job has write privileges. The command to copy the directory as described varies slightly depending on how you have set up your directories, but should look something like:
+```
+cp -r ~/project/Scripts/USER/rowland-quantsec ~/../../scratch/st-aciernia-1/USER
+```
+5. Now, change your working directory to the copied rowland-quantsec directory within /scratch. Use the command
+```
+qsub Master_QuantSeqAnalyis.sh
+```
+
+6. 
+7.
+8.
+9.
+
 # How bbduk.sh works
 
-Complete bbduk.sh documentation for each field can be found in the script itself.
+Complete bbduk.sh documentation for every possible field can be found in the script itself.
 
 Usage examples can be found in user guide at https://jgi.doe.gov/data-and-tools/software-tools/bbtools/bb-tools-user-guide/bbduk-guide/
 
