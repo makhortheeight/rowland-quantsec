@@ -34,15 +34,28 @@ NOTES:
 ```
 cp -r ~/project/Scripts/USER/rowland-quantsec ~/../../scratch/st-aciernia-1/USER
 ```
-5. Now, change your working directory to the copied rowland-quantsec directory within /scratch. Use the command
+5. Now, change your working directory to the copied rowland-quantsec directory within /scratch. Before we run the pipeline itself, we need to finish building our STAR indices, so you'll want to run the file RemSTARbuild.sh, using
+```
+qsub RemSTARbuild.sh
+```
+This will create a job id of the format "1111111.pbsha.ib.sockeye". You can check on this program while it's running by using the following command:
+```
+qstat 1111111.pbsha.ib.sockeye
+```
+Now that the STAR indices have been built, we can start the pipeline itself.
+7. Use the command
 ```
 qsub Master_QuantSeqAnalyis.sh
 ```
-
-6. 
-7.
-8.
-9.
+6. After Master_QuantSeqAnalyis.sh has finished running, you will want to verify the contents of both Quantsec.out (which contains the printed statements from the submitted program, like the output of an ls command) and Quantsec.e1111111 (which specifically contains error messages produced by the submitted program). You can do this in many ways, but here is an example:
+```
+vim Quantsec.out
+vim Quantsec.e1111111
+```
+Use these to make sure that the entire pipeline executed without fault.
+7. Assuming the entire pipeline executed without fault, you should be able to transfer the bamfile off of Sockeye for use in further analysis. Additionally, you will most likely want to transfer the fastqc .html report file for use in quality assurance. This must be done locally because Sockeye doesn't support the multiqc module.
+8. Now that the pipeline has executed, some book-keeping. Remember how most of these steps have been using a copy of the /rowland-quantsec directory? Now that our work is done, we need to delete this copy. Optionally, if you want to save some of these genome files to make the next execution easier, feel free to transfer the copied directory back into the original cloned repository. Either way, you *must* delete the directory /scratch/st-aciernia-1/USER/rowland-quantsec.
+9. This procedure is now finished! With this accomplished, you are now able to pursue your specialised protocol for tertiary analysis. The sections following this one describe quirks of this pipeline that are not necessary for its execution, but are invaluable if you are going to be altering it.
 
 # How bbduk.sh works
 
