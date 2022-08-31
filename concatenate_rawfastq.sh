@@ -1,11 +1,18 @@
 #!/bin/bash
+#PBS -l walltime=1:00:00,select=1:ncpus=2:mem=4000mb
+#PBS -N ConcatRawFast
+#PBS -A st-aciernia-1
+#PBS -v currUser=$USER
+#PBS -o ConcatRawFast.out
 
 #######################################################################################
 #concatenate command
 shopt -s globstar
 
+echo "starting cating"
 cat **/**/**/101123NT*.fastq.gz > combinedrawfastq/101123NT.fastq.gz
 cat **/**/**/101119LTA*.fastq.gz > combinedrawfastq/101119LTA.fastq.gz
+echo "in the middle of cating"
 cat **/**/**/101123LPS*.fastq.gz > combinedrawfastq/101123LPS.fastq.gz
 cat **/**/**/101699NT*.fastq.gz > combinedrawfastq/101699NT.fastq.gz
 cat **/**/**/101676LTA*.fastq.gz > combinedrawfastq/101676LTA.fastq.gz
@@ -145,25 +152,3 @@ cat **/**/**/101660NT*.fastq.gz > combinedrawfastq/101660NT.fastq.gz
 cat **/**/**/101660LPS*.fastq.gz > combinedrawfastq/101660LPS.fastq.gz
 cat **/**/**/101734NT*.fastq.gz > combinedrawfastq/101734NT.fastq.gz
 cat **/**/**/101734LPS*.fastq.gz > combinedrawfastq/101734LPS.fastq.gz
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

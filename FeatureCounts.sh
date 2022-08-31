@@ -10,11 +10,11 @@
 
 #######################################################################################
 #load modules
-module load subread/1.6.0
+module load subread/2.0.3
 #######################################################################################
 
 #it contains this:
-for sample in `cat samples.txt`
+for sample in `cat ~/scratch/hscott/rowland-quantsec/samples.txt`
 do
 R1=${sample}
 

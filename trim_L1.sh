@@ -29,7 +29,7 @@ fastqc ${R1} --outdir fastqc_pretrim
 ## quality-trim to Q10 using the Phred algorithm,
 echo ${R1} "trimming"
 
-bbduk.sh in=${R1} out=${R1} ref=~/scratch/hscott/rowland-quantsec/test.fa.gz,/home/hscott03/scratch/hscott/rowland-quantsec/truseq_rna.fa.gz k=13 ktrim=r forcetrimleft=11 useshortkmers=t mink=5 qtrim=t trimq=10 minlength=20
+bbduk.sh in=${R1} out=${R1} ref=~/scratch/hscott/rowland-quantsec/polyA.fa.gz,/home/hscott03/scratch/hscott/rowland-quantsec/truseq_rna.fa.gz k=13 ktrim=r forcetrimleft=11 useshortkmers=t mink=5 qtrim=t trimq=10 minlength=20
 
 
 #fastqc on post-trimmed file

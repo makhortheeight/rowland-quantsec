@@ -280,7 +280,7 @@ Java Parameters:
 Please contact Brian Bushnell at bbushnell@lbl.gov if you encounter any problems.
 "	
 }
-
+pwd
 pushd . > /dev/null
 DIR="${BASH_SOURCE[0]}"
 while [ -h "$DIR" ]; do
