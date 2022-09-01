@@ -1,4 +1,4 @@
-# RNAseq Secondary Analysis Pipeline (rowland-quantsec) [31/08/2022 15:13]
+# RNAseq Secondary Analysis Pipeline (rowland-quantsec) [1/09/2022 11:42]
 
 # Instructions for use
 NOTES:
@@ -51,7 +51,7 @@ This section covers what happens within Master_QuantSeqAnalyis.sh as it runs.
 
 Here's a handy graph:
 
-[graph goes here]
+![](Directory Structure.png)
 
 As you can see, the structure is slightly confusing.
 
