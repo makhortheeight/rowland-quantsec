@@ -1,4 +1,4 @@
-# RNAseq Secondary Analysis Pipeline (rowland-quantsec) [1/09/2022 11:45]
+# RNAseq Secondary Analysis Pipeline (rowland-quantsec) [1/09/2022 11:55]
 
 # Instructions for use
 NOTES:
@@ -53,7 +53,9 @@ Here's a handy graph:
 
 ![](https://github.com/makhortheeight/rowland-quantsec/blob/main/Directory%20Structure.png)
 
-As you can see, the structure is slightly confusing.
+As you can see, the structure is slightly confusing. In short, every time you log in, your working directory by default will be /home/USER, which is itself a pointer to /arc/home/USER. This directory structure uses nested pointers in a unique way, so I thought it'd be easier to grasp with a graph present. Of course, substitute USER for your specific username.
+
+Note: While the pointers within /arc/home/USER point to directories that others can access, any other directory you create will not be accessible for other people in your allocation. Only yourself and users with sudo (that is to say, some or all of the developpers at ARC) will be able to access that directory. Please, don't put your work in there, it makes life easier for everyone involved. Realistically, those 2 pointers you have in your home directory will be all you need.
 
 ## Translating SLURM to PBS
 
