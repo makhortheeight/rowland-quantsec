@@ -1,4 +1,4 @@
-# RNAseq Secondary Analysis Pipeline (rowland-quantsec) [1/09/2022 12:00]
+# RNAseq Secondary Analysis Pipeline (rowland-quantsec) [1/09/2022 12:06]
 
 # Instructions for use
 NOTES:
@@ -93,7 +93,7 @@ The fifth line, --time, define the maximum time the script needs to run, just li
 
 # Misc facts about this pipeline
 
-This pipeline aims to profile mRNA responses. It uses the Lexogen QuantSec 3' kit for sequencing platform and protocol (info on RNA-to-cDNA conversion, as well as adaptor sequence and DNA amplification specifics, can be found on their website, which is linked at the bottom of page).
+This pipeline aims to profile mRNA responses. It uses the Lexogen QuantSec 3' kit for its sequencing platform and protocol (info on RNA-to-cDNA conversion, as well as adaptor sequence and DNA amplification specifics, can be found on their website, which is linked at the bottom of page).
 
 This pipeline uses Single-End sequencing, not Paired End. If you want to use Paired End sequencing, some adjustments will need to be made during the trimming and alignment steps, as well as with file addresses (and possibly other places as well). 
 
@@ -101,7 +101,7 @@ NextGenSequencing is used after library amplification step. This means that the 
 
 # fa.gz files that are used as reference
 
-polyA.fa.gz is used to remove any polyA tails from the reads --> polyA tails not removed during cDNA conversion, ergo removed after the fact.
+polyA.fa.gz is used to remove any polyA tails from the reads, because polyA tails are not removed during cDNA conversion.
 
 truseq.fa.gz is used to remove the adaptor sequences used during cDNA generation.
 
@@ -114,10 +114,10 @@ Usage examples can be found in user guide at https://jgi.doe.gov/data-and-tools/
 ### Fields used in this procedure:
 
 in=/path/to/sample/file
->Indicates the input file --> In this pipeline, that's the sequence that needs trimming
+>Indicates the input file --> in this pipeline, that's the sequence that needs trimming
 
 out=/path/to/output/file
->Indicates the output file --> In this pipeline, that's the trimmed sequence
+>Indicates the output file --> in this pipeline, that's the trimmed sequence
 
 ref=/path/to/polyA.fa.gz,/path/to/truseq.fa.gz
 >Indicates the references file(s) --> in this case, parts of sequence that need to be removed (i.e. polyA tails & cDNA adaptors)
