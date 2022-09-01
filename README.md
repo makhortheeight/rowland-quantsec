@@ -1,4 +1,4 @@
-# RNAseq Secondary Analysis Pipeline (rowland-quantsec) [1/09/2022 11:58]
+# RNAseq Secondary Analysis Pipeline (rowland-quantsec) [1/09/2022 12:00]
 
 # Instructions for use
 NOTES:
@@ -26,12 +26,11 @@ Now that the STAR indices have been built, we can start the pipeline itself.
 ```
 qsub Master_QuantSeqAnalyis.sh
 ```
-7. After Master_QuantSeqAnalyis.sh has finished running, you will want to verify the contents of both Quantsec.out (which contains the printed statements from the submitted program, like the output of an ls command) and Quantsec.e1111111 (which specifically contains error messages produced by the submitted program). You can do this in many ways, but here is an example:
+7. After Master_QuantSeqAnalyis.sh has finished running, you will want to verify the contents of both Quantsec.out (which contains the printed statements from the submitted program, like the output of an ls command) and Quantsec.e1111111 (which specifically contains error messages produced by the submitted program), to make sure that the entire pipeline executed without fault. The last line of Quantsec.out should be "Program finished, have a nice day". You can do this verification in many ways, but here is an example:
 ```
 vim Quantsec.out
 vim Quantsec.e1111111
 ```
-Use these to make sure that the entire pipeline executed without fault. The last line of Quantsec.out should be "Program finished, have a nice day".
 8. Assuming the entire pipeline executed without fault, you should be able to transfer the bamfile off of Sockeye for use in further analysis. Additionally, you will most likely want to transfer the fastqc .html report file for use in quality assurance. This must be done locally because Sockeye doesn't support the multiqc module.
 9. Now that the pipeline has executed, some book-keeping. Remember how most of these steps have been using a copy of the /rowland-quantsec directory? Now that our work is done, we need to delete this copy. Optionally, if you want to save some of these genome files to make the next execution easier, feel free to transfer the copied directory back into the original cloned repository. Either way, you *must* delete the directory /scratch/st-aciernia-1/USER/rowland-quantsec.
 10. This procedure is now finished! With this accomplished, you are now able to pursue your specialised protocol for tertiary analysis. The sections following this one describe quirks of this pipeline that are not necessary for its execution, but are invaluable if you are going to be altering it. FeatureCounts.sh is an included script in this directory, and serves as an example of what could be done after this procedure. An example of a full post-pipeline analysis can be found at https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8791942/
